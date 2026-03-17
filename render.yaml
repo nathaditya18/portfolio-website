@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: portfolio
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        fromDatabase:
+          name: portfolio-db
+          property: host
+      - key: DB_USER
+        fromDatabase:
+          name: portfolio-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: portfolio-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: portfolio-db
+          property: database
+
+databases:
+  - name: portfolio-db
+    plan: free
+    databaseName: portfolio_db
+    user: portfolio_user
